@@ -23,7 +23,8 @@ body {
 .search-button {
   padding: 10px 50px;
   border-radius: 25px;
-  margin-left: 20px;
+  /* margin-left: 20px;  */
+  margin-left: 25px;                                   /* req no 9 */
 }
 #all-products {
   display: grid;
@@ -42,7 +43,8 @@ body {
 .single-product:hover {
   box-shadow: 4px 4px 7px gray;
   border-radius: 10px;
-  border: 1px solid cyan;
+  background-color:rgb(214, 208, 208);       /* req no 11 */
+  /* border: 1px solid cyan; */
 }
 .product-image {
   width: 150px;

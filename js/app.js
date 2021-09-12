@@ -1,16 +1,29 @@
 const loadProducts = () => {
   const url = `https://fakestoreapi.com/products`;
-  fetch(url)
+  fetch(url)                                      //url   "js/data.json"
     .then((response) => response.json())
     .then((data) => showProducts(data));
 };
 loadProducts();
 
+
+/* 
+req:1 ========> html line 35  =  box fix 
+req:2 ====> js line 16  = pic show
+req:3 ====> html line 53  =   $ sign erease
+req:4 ====> js line 52 =  total update
+req:5 ====> js line 63   =   price in use point up to 2 sot
+req:8 ====> js line 34 & 35   = rating add      
+req:9 ====> css line 27   =       search bar make clear
+req:10 ====> html line 8  = change name rangga
+req:11 ====> css line 46 = box color change on hover
+*/
+
 // show all product in UI 
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    const image = product.images;
+    const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
@@ -20,6 +33,8 @@ const showProducts = (products) => {
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
+      <h5>Rate: ${product.rating.rate}</h5>
+      <h5>count: ${product.rating.count}</h5>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
       `;
@@ -33,11 +48,13 @@ const addToCart = (id, price) => {
 
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
+  updateTotal();
 };
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  // const converted = parseInt(element);
+  const converted = parseFloat(element);          //req no 4
   return converted;
 };
 
@@ -46,7 +63,8 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  // document.getElementById(id).innerText = Math.round(total);       
+  document.getElementById(id).innerText = total.toFixed(2);          //req no 5
 };
 
 // set innerText function
@@ -55,7 +73,7 @@ const setInnerText = (id, value) => {
 };
 
 // update delivery charge and total Tax
-const updateTaxAndCharge = () => {
+const updateTaxAndCharge = () => { 
   const priceConverted = getInputValue("price");
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
@@ -74,7 +92,6 @@ const updateTaxAndCharge = () => {
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
-    getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  getInputValue("price"); + getInputValue("delivery-charge") + getInputValue("total-tax");
+  document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
