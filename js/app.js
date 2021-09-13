@@ -36,7 +36,7 @@ const showProducts = (products) => {
       <h5>Rate: ${product.rating.rate}</h5>
       <h5>count: ${product.rating.count}</h5>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" onclick="detailsBtn()" class="btn btn-danger">Details</button></div>
+      <button id="details-btn" onclick="detailsBtn('${product.id}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -97,34 +97,24 @@ const updateTotal = () => {
 };
 
 
-const detailsBtn= () =>{
-  fetch('https://fakestoreapi.com/products/1')
+const detailsBtn= (id) =>{
+  fetch(`https://fakestoreapi.com/products/${id}`)
             .then(res=>res.json())
             .then(data=>displayDetails(data))
 };
 
-const displayDetails =(shirts) =>{
-  console.log(shirts);
-  const div = document.createElement("div");
-  div.innerHTML = `
-  <div class="modal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">${shirts.title}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <img  src=${shirts.image}></img>
-        <p>${shirts.description}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
+const displayDetails =(data) =>{
+  console.log(data);
+  const showDetails = document.getElementById("exampleModalLabel");
+  showDetails.innerText=data.title;
+  const imgAdd = document.getElementById("modal-pic")
+  imgAdd.innerHTML=`
+  <div class="row">
+      <div class="col"><img style="height: 200px;" class="img-fluid" src="${data.image}" alt=""></div>
+      <div class="col"><h5>Description</h5><p>${data.description}</p></div>
   </div>
-  </div>
-  `;
-  document.getElementById("details-btn").appendChild(div);
+  <h5>Category: ${data.category}</h5>
+  <h5>Rating: ${data.rating.rate}</h5>
+  <h5>Rating:$${data.price}</h5>
+  `
 }

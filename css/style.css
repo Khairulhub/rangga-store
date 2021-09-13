@@ -24,7 +24,7 @@ body {
   padding: 10px 50px;
   border-radius: 25px;
   /* margin-left: 20px;  */
-  margin-left: 25px;                                   /* req no 9 */
+  margin-left: 18px;                                   /* req no 9 */
 }
 #all-products {
   display: grid;
