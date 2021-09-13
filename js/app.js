@@ -17,6 +17,7 @@ req:8 ====> js line 34 & 35   = rating add
 req:9 ====> css line 27   =       search bar make clear
 req:10 ====> html line 8  = change name rangga
 req:11 ====> css line 46 = box color change on hover
+req:12 ====> html line 96  && js line 100= modal add
 */
 
 // show all product in UI 
@@ -96,7 +97,7 @@ const updateTotal = () => {
   document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 
-
+/* modal add */
 const detailsBtn= (id) =>{
   fetch(`https://fakestoreapi.com/products/${id}`)
             .then(res=>res.json())
